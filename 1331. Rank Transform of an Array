@@ -1,0 +1,16 @@
+class Solution {
+public:
+    vector<int> arrayRankTransform(vector<int>& arr) {
+        vector<int> arr2 = arr;
+        
+        sort(arr2.begin(), arr2.end());
+        arr2.erase(unique(arr2.begin(), arr2.end()), arr2.end());
+        
+        vector<int> res;
+        for (auto val : arr) {
+            res.push_back(lower_bound(arr2.begin(), arr2.end(), val) - arr2.begin() + 1);
+        }
+        
+        return res;
+    }
+};
