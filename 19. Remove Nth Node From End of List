@@ -1,0 +1,91 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+
+class Solution {
+public:
+//     ListNode* removeNthFromEnd(ListNode* head, int n) {
+//         ListNode* prev = NULL;
+//         ListNode* curr = head;
+        
+//         int size = 0, i=1;
+        
+//         while(curr != NULL)
+//         {
+//             size++;
+//             curr = curr->next;
+//         }
+        
+        
+//         if(size==1)
+//         {
+//             delete(head);
+//             return prev;
+//         }
+        
+//         if(size == n)
+//         {
+//             head = head->next;
+//             return head;
+//         }
+        
+//         curr = head;
+//         prev = head;
+        
+//         while(i != size-n)
+//         {
+//             prev = prev->next;
+//             i++;
+//         }
+        
+//         curr = prev->next;
+//         prev->next = curr->next;
+        
+//         delete(curr);
+//         return head;
+//     }
+    
+    int countNodesInList(ListNode* head)
+	{
+		if (head == nullptr) return 0;
+		return countNodesInList(head->next) + 1;
+	}
+	void removeNthFromFront(ListNode** head, int n)
+	{
+		if (head == nullptr)
+			return;
+		if (n < 0)
+			return;
+		if (n == 0)
+		{
+			*head = (*head)->next;
+			return;
+		}
+		ListNode* temp = *head;
+		ListNode* prev = temp;
+		while (temp != nullptr)
+		{
+			if (n == 0)
+			{
+				prev->next = temp->next;
+				return;
+			}
+			prev = temp;
+			temp = temp->next;
+			n--;
+		}
+	}
+    ListNode* removeNthFromEnd(ListNode* head, int n) 
+    {
+		int totalNodex = countNodesInList(head);
+		removeNthFromFront(&head, totalNodex - n);
+        return head;
+    }
+};
