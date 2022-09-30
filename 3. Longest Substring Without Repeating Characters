@@ -1,0 +1,60 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        if(s.length()==NULL)
+        {
+            return 0;
+        }
+        int l=s.length();
+        int st=0,temp=0,maxi=INT_MIN;
+        map<char,int> m;
+        int flag=0;
+        for(int i=0;i<l;i++)
+        {
+            char c=s[i];
+            m[c]++;
+            temp++;
+            for(auto it:m)
+            {
+               if(it.second>1)
+               {
+                   char ch=s[st];
+                   m[ch]--;
+                   st++;
+                   temp--;
+               }
+            }
+            maxi=max(maxi,temp); 
+            
+        }
+        
+        return maxi;
+    }
+};
+
+More Optimized Solution........
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        const int N=s.size();
+        
+        vector<int> cnt(256, 0);
+        int max_len = 0;
+        int left = 0, right = 0;
+        while (right < N) {
+            cnt[s[right]]--;
+            
+            while (cnt[s[right]] < -1) {
+                cnt[s[left]]++;
+                ++left;
+            }
+            
+            max_len = max(max_len, right-left+1);
+            
+            ++right;
+        }
+        
+        return max_len;
+    }
+};
