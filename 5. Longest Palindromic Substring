@@ -1,0 +1,66 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+//         string rev = s;
+//         reverse(rev.begin(),rev.end());
+        
+//         int m = s.length();
+//         int n = m;
+        
+//         if(m == 1)
+//             return s;
+
+//         int t[m+1][n+1];
+        
+//         for(int i=0;i<m+1;i++)
+//         {
+//             for(int j=0;j<n+1;j++)
+//             {
+//                 if(i==0||j==0) t[i][j] = 0;
+//             }
+//         }
+        
+//         for(int i=1;i<m+1;i++)
+//         {
+//             for(int j=1;j<n+1;j++)
+//             {
+//                 if(s[i-1] == rev[j-1])
+//                     t[i][j] = 1 + t[i-1][j-1];
+//                 else
+//                     t[i][j] = 0;
+//             }
+//         }
+        
+//         int i=m,j=n;
+//         string str = "";
+        
+//         while(i>0||j>0)
+//         {
+//             if(s[i-1] == rev[j-1])
+//             {
+//                 str.push_back(s[i-1]);
+//                 i--;
+//                 j--;
+//             }
+//             else
+//             {
+//                 if(t[i][j-1] > t[i-1][j])
+//                     j--;
+//                 else
+//                     i--;
+//             }
+//         }
+//         return str;
+        
+        int n = s.size();
+        int start = 0, maxLen = 1;
+        for(int i = 0; i < n;) {
+            int x = i-1, y = i+1;
+            while(y < n && s[y] == s[i]) y++;
+            i = y;
+            while(x >= 0 && y < n && s[x] == s[y]) {x--;y++;}
+            if(y-x-1 > maxLen) {start = x+1; maxLen = y-x-1;}
+        }
+        return s.substr(start, maxLen);
+    }
+};
