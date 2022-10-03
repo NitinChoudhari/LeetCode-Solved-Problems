@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int numRollsToTarget(int n, int k, int target) {
+        
+        int modulo=1e9+7;
+        int t[n+1][target+1];
+        
+        for(int i=0;i<=n;i++)
+        {
+            for(int j=0;j<=target;j++)
+                t[i][j]=0;
+        }
+        
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=target;j++)
+            {
+                if(i==1 && j<=k)
+                    t[i][j]=1; // for first throw you can achieve target=j till k in 1 way
+                
+                else
+                {
+                    for(int l=1;l<=k;l++)
+                    {
+                        if(j-l>=0)
+                        t[i][j]=(t[i][j]+t[i-1][j-l])%modulo;
+                            // for ith throw you can achieve target=j in k ways 
+                            // and each way will happen in dp[i-1][j-l] ways 
+                            // adding all these ways will equal to number of ways target=j can be achieved on ith throw 
+                    }
+                }
+            }
+        }
+        return t[n][target];
+    }    
+};
