@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int countVowelStrings(int n) {
+        
+        if(n==1)
+            return 5;
+        
+        int cnt = 0;
+        vector<int> t(5,1);
+        
+        while(--n)
+        {
+            for(int i=3;i>=0;i--)
+                t[i] += t[i+1];
+        }
+        
+        for(auto e:t)
+            cnt += e;
+        
+        return cnt;
+    }
+};
