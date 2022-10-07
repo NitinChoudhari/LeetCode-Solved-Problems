@@ -1,0 +1,41 @@
+class MyCalendar {
+private:
+    // map<int, int> mt;
+    vector<pair<int,int>> vec;
+public:
+    MyCalendar() {
+        
+    }
+    
+    bool book(int start, int end) {
+//         int sum = 0;
+        
+//         mt[start]++; // similar to mt.insert({start,1})
+//         mt[end]--;      // similar to mt.insert({end,-1})
+        
+//         for(auto ele : mt)
+//         {
+//             sum += ele.second;
+            
+//             if(sum > 1)
+//             {
+//                 mt[start]--;
+//                 mt[end]++;
+//                 return false;
+//             }
+//         }
+//         return true;
+        
+        for(auto ele : vec)
+            if(max(ele.first,start) < min(ele.second,end)) return false;
+            vec.push_back({start, end});
+        return true;
+        
+    }
+};
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar* obj = new MyCalendar();
+ * bool param_1 = obj->book(start,end);
+ */
